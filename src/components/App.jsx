@@ -47,7 +47,6 @@ const App = () => {
         }
       })
       .then(res => {
-        console.log(res);
         if (res.total === 0) {
           toast.error(`nothing was found to your request ${query}.`);
         }
@@ -70,6 +69,14 @@ const App = () => {
     setQuery(value);
     setPage(1);
   } 
+
+  const scrollDown = () => {
+    const scrollLength = page * 1600;
+    window.scrollTo({
+      top: scrollLength,
+      behavior: 'smooth',
+    })
+  }
   return (
     <div>
       <Searchbar onSubmit={onSearch}></Searchbar>
@@ -96,6 +103,7 @@ const App = () => {
           />
         </div>
       )}
+      {images.length >= 12 && <button type='button' onClick={scrollDown} className="scroll">Scroll down</button>}
       <ImageGallery>
          {images.map((image, index) => {
           return (
